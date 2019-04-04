@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">DrawablesExmp</string>
+    <string name="file">File</string>
+    <string name="create_new">Create New</string>
+    <string name="open">Open</string>
 </resources>
