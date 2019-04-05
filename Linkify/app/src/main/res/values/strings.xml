@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Linkify</string>
+    <string name="tv1">https://github.com/kiir33/android</string>
+    <string name="tv2">9843745263</string>
+    <string name="tv3">kiranbanmala3@gmail.com</string>
 </resources>
