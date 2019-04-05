@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">scrollView</string>
+    <string name="header">Details</string>
+    <string name="footer">.App by Kiran.</string>
+    <string name="btn">Tap Here</string>
+</resources>
