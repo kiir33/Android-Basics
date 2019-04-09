@@ -1,0 +1,17 @@
+{
+    "students":[
+        {
+            "name" : "Kiran Banmala",
+            "contact" : "9841234567"
+        },
+        {
+            "name" : "Rabin Dhongii",
+            "contact" : "9841234567"
+        },
+        {
+            "name" : "Dhongii Rabin",
+            "contact" : "9841234567"
+        }
+
+    ]
+}
