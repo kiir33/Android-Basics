@@ -3,17 +3,22 @@ package com.example.sqlite;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText people_id,name, phone;
     Button add, read, update, delete;
-    TextView recyclerView;
+    RecyclerView recyclerView;
     DBHelper dbHelper;
 
     @Override
@@ -34,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         read = (Button) findViewById(R.id.btn_read);
         update = (Button) findViewById(R.id.btn_update);
         delete = (Button) findViewById(R.id.btn_delete);
-        recyclerView = (TextView) findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         add.setOnClickListener(CRUDListener);
         read.setOnClickListener(CRUDListener);
@@ -64,34 +70,42 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.btn_add:
                     int did;
                     String data_id = getValue(people_id);
+                    String txt = getValue(name);
+                    String phn = getValue(phone);
                     if(data_id.length()==0){
                         did = -1;
                     }else {
                         did = Integer.valueOf(data_id);
                     }
-                    long rInsert = dbHelper.insert(did, getValue(name),getValue(phone));
-                    if(rInsert == -1){
-                        Toast.makeText(getApplicationContext(),"Error in adding data!!!",Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getApplicationContext(),"Data Added Successfully",Toast.LENGTH_SHORT).show();
+                    if(txt.length() == 0 || phn.length() == 0){
+                        Toast.makeText(getApplicationContext(),"Enter name and phone no. first", Toast.LENGTH_SHORT).show();
+                        (txt.length() != 0 ? phone : name).requestFocus();
+                    }
+                    else{
+                        long rInsert = dbHelper.insert(did, getValue(name), getValue(phone));
+                        if (rInsert == -1) {
+                            Toast.makeText(getApplicationContext(), "Error in adding data!!!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Data Added Successfully", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     break;
 
                 case  R.id.btn_read:
-                    StringBuffer stringBuffer = new StringBuffer();
+
                     Cursor cursor = dbHelper.getAllRecords();
 
+                    ArrayList<String> id = new ArrayList<String>();
+                    ArrayList<String> names = new ArrayList<String>();
+                    ArrayList<String> phones = new ArrayList<String>();
+
                     for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()){
-                        stringBuffer.append(cursor.getInt(cursor.getColumnIndex(dbHelper.id)));
-                        stringBuffer.append(".\t\t");
 
-                        stringBuffer.append(cursor.getString(cursor.getColumnIndex(dbHelper.name)));
-                        stringBuffer.append("\t - \t");
-
-                        stringBuffer.append(cursor.getString(cursor.getColumnIndex(dbHelper.phone)));
-                        stringBuffer.append("\n");
+                        id.add((cursor.getString(cursor.getColumnIndex(dbHelper.id))));
+                        names.add((cursor.getString(cursor.getColumnIndex(dbHelper.name))));
+                        phones.add((cursor.getString(cursor.getColumnIndex(dbHelper.phone))));
                     }
-                    recyclerView.setText(stringBuffer);
+                    recyclerView.setAdapter(new MyListAdapter(id, names, phones));
                     break;
 
                 case R.id.btn_update:

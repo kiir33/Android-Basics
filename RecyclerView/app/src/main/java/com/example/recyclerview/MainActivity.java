@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.mylist);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         int[] images = {R.drawable.fb,R.drawable.youtube,R.drawable.twit,R.drawable.insta,
                         R.drawable.link,R.drawable.google,R.drawable.hang,R.drawable.pin,
                         R.drawable.fb,R.drawable.youtube,R.drawable.twit,R.drawable.insta,

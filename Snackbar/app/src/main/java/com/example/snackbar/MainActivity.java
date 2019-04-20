@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private EditText editText;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         editText.setText(temp);
+                                        Toast.makeText(getApplicationContext(),"Snackbars Action Clicked!!",Toast.LENGTH_SHORT).show();
                                     }
                                 }).show();
 
